@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>App Diego - @yield('title')</title>
+    <title>App Diego - @yield('title', 'Titulo Default')</title>
     @vite(['resources/js/app.js', 'resources/css/app.scss'])
 
 </head>
@@ -51,7 +51,7 @@
                         >Ver</a
                     >
                     <div class="dropdown-menu" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="{{ route('pilotos.index') }}">Ver Pilotos</a>
+                        <a class="dropdown-item" href="{{ route('pilotos.Pindex') }}">Ver Pilotos</a>
                         <a class="dropdown-item" href="{{ route('aerolineas.index') }}">Ver Aerolineas</a>
                     </div>
                 </li>
@@ -70,4 +70,11 @@
     </nav>
 </header>
     @show
+
+    <body>
+        <div class="container">
+            @yield('content')
+
+        </div>
+    </body>
 

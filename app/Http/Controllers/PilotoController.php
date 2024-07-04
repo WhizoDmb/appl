@@ -18,7 +18,7 @@ class PilotoController extends Controller
 
     public function store(Request $request){
         $piloto = new Pilotos();
-        $piloto -> Nombre = $request -> Nombre;
+        $piloto -> Nombre = $request -> nombre;
         $piloto -> Apaterno = $request -> Apaterno;
         $piloto -> Amaterno = $request -> Amaterno;
         $piloto -> CURP = $request -> CURP;
@@ -27,6 +27,12 @@ class PilotoController extends Controller
 
         $piloto -> save();
 
-        return redirect()->route('pilotos.index');
+        return redirect()->route('pilotos.Pindex');
+    }
+
+    public function updateForm($id){
+        $piloto = Pilotos::find($id);
+
+        return view('pilotosUpdateForm',compact('piloto'));
     }
 }

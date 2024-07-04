@@ -7,6 +7,7 @@
         id=""
         aria-describedby="helpId"
         placeholder=""
+        value="{{ $value ?? '' }}"
     />
     <small id="helpId" class="form-text text-muted">{{ $text ?? 'small text' }}</small>
 </div>

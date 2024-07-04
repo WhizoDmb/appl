@@ -17,13 +17,18 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [GlobalController::class, 'index'])->name('aeropuerto.index');
 
-Route::get('/pilotos', [PilotoController::class, 'index'])->name('pilotos.index');
+Route::get('/pilotos', [PilotoController::class, 'index'])->name('pilotos.Pindex');
 
 Route::get('/pilotos/create', [PilotoController::class, 'create'])->name('pilotos.create');
 
 Route::post('/pilotos/store', [PilotoController::class, 'store'])->name('pilotos.store');
 
-Route::get('/pilotos/updateForm/{id}', [PilotoController::class, 'updateForm'])->name('pilotos.updateForm');
+ Route::get('/pilotos/updateForm/{id}', [PilotoController::class, 'updateForm'])->name('pilotos.updateForm');
+
+//Route::get('/updateForm/{id}', function ($id) {
+//    return view('updateForm', ['id' => $id]);
+//})->name('pilotos.updateForm');
+
 
 Route::put('/pilotos/update/{id}', [PilotoController::class, 'update'])->name('pilotos.update');
 
