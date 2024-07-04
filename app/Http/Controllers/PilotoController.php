@@ -35,4 +35,25 @@ class PilotoController extends Controller
 
         return view('pilotosUpdateForm',compact('piloto'));
     }
+
+    public function update(Request $request, $id){
+        $piloto = Pilotos::find($id);
+
+        $piloto -> Nombre = $request -> nombre;
+        $piloto -> Apaterno = $request -> Apaterno;
+        $piloto -> Amaterno = $request -> Amaterno;
+        $piloto -> CURP = $request -> CURP;
+        $piloto -> RFC = $request -> RFC;
+        $piloto->nacionalidad= $request->nacionalidad;
+
+        $piloto -> save();
+
+        return redirect()->route('pilotos.Pindex',['message'=>'success']);
+    }
+
+    public function delete($id){
+        $piloto = Pilotos::find($id);
+        $piloto->delete();
+        return redirect()->route('pilotos.Pindex',['message'=>'success']);
+    }
 }

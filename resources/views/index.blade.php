@@ -2,7 +2,7 @@
 
 
 
-@section('title','Create Piloto')
+@section('title','Pagina principal')
 
 @section('navbar')
     @parent

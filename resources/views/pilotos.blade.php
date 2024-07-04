@@ -2,7 +2,16 @@
 @section('titulo','Lista de Pilotos')
 @section('h1','Pilotos Activos')
 
+
+
 @section('thead')
+@if(request('message') === 'success')
+    @include('components.alerts.alert-default',[
+        'class'=>'primary',
+        'header'=>'Piloto eliminado con exito!',
+        'content'=>'El proceso de elimado del piloto ocurrió con exito.'
+    ])
+@endif
     <th class="text-center">Nombre </th>
     <th class="text-center">Apellido Paterno</th>
     <th class="text-center">Apellido Materno</th>
@@ -11,6 +20,8 @@
     <th class="text-center">Nacionalidad</th>
     <th class="text-center" colspan="2">Acciones</th>
 @endsection
+
+
 
 @section('tbody')
     @foreach ($pilotos as $piloto)
@@ -49,7 +60,15 @@
                 <a href="{{ route('pilotos.updateForm', ['id' => $piloto -> id]) }}" class="btn btn-primary">Editar</a>
             </td>
             <td>
-                <a href="{{ route('pilotos.delete', ['id' => $piloto -> id]) }}" class="btn btn-danger">Eliminar</a>
+                <form action="{{  route('pilotos.delete', ['id' => $piloto -> id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    @include('components.form.input-submit',[
+                        'name'=> 'Eliminar',
+                        'class'=>'danger'
+                        ])
+
+                </form>
             </td>
         </tr>
     @endforeach
