@@ -9,11 +9,11 @@ class PilotoController extends Controller
 {
     public function index(){
         $pilotos = Pilotos::all();
-        return view('pilotos.index',compact('pilotos'));
+        return view('pilotos',compact('pilotos'));
     }
 
     public function create(){
-        return view('pilotos.createForm');
+        return view('pilotosForm');
     }
 
     public function store(Request $request){
@@ -23,9 +23,10 @@ class PilotoController extends Controller
         $piloto -> Amaterno = $request -> Amaterno;
         $piloto -> CURP = $request -> CURP;
         $piloto -> RFC = $request -> RFC;
+        $piloto->nacionalidad= $request->nacionalidad;
 
         $piloto -> save();
 
-        return redirect()->route('productos.index');
+        return redirect()->route('pilotos.index');
     }
 }

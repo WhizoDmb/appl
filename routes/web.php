@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AerolineaController;
+use App\Http\Controllers\GlobalController;
 use App\Http\Controllers\PilotoController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [GlobalController::class, 'index'])->name('aeropuerto.index');
 
 Route::get('/pilotos', [PilotoController::class, 'index'])->name('pilotos.index');
 
