@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\AerolineaController;
-use App\Http\Controllers\GlobalController;
-use App\Http\Controllers\PilotoController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,35 +15,24 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [GlobalController::class, 'index'])->name('aeropuerto.index');
 
-Route::get('/pilotos', [PilotoController::class, 'index'])->name('pilotos.Pindex');
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
-Route::get('/pilotos/create', [PilotoController::class, 'create'])->name('pilotos.create');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/pilotos/store', [PilotoController::class, 'store'])->name('pilotos.store');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
- Route::get('/pilotos/updateForm/{id}', [PilotoController::class, 'updateForm'])->name('pilotos.updateForm');
-
-//Route::get('/updateForm/{id}', function ($id) {
-//    return view('updateForm', ['id' => $id]);
-//})->name('pilotos.updateForm');
-
-
-Route::put('/pilotos/update/{id}', [PilotoController::class, 'update'])->name('pilotos.update');
-
-Route::delete('/pilotos/delete/{id}', [PilotoController::class, 'delete'])->name('pilotos.delete');
-
-
-
-Route::get('/aerolineas', [AerolineaController::class, 'index'])->name('aerolineas.index');
-
-Route::get('/aerolineas/create', [AerolineaController::class, 'create'])->name('aerolineas.create');
-
-Route::post('/aerolineas/store', [AerolineaController::class, 'store'])->name('aerolineas.store');
-
-Route::get('/aerolineas/updateForm/{id}', [AerolineaController::class, 'updateForm'])->name('aerolineas.updateForm');
-
-Route::put('/aerolineas/update/{id}', [AerolineaController::class, 'update'])->name('aerolineas.update');
-
-Route::delete('/aerolineas/delete/{id}', [AerolineaController::class, 'delete'])->name('aerolineas.delete');
+require __DIR__.'/auth.php';
